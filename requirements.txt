@@ -1,0 +1,10 @@
+playwright==1.58.0
+camoufox[geoip]==0.4.11
+beautifulsoup4==4.14.3
+lxml==6.0.2
+phonenumbers==9.0.24
+httpx==0.28.1
+python-dotenv==1.2.1
+fastapi==0.131.0
+uvicorn==0.41.0
+python-multipart==0.0.9
