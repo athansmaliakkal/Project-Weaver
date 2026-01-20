@@ -11,7 +11,7 @@ from config import DB_PATH, OUTPUT_DIR
 from main import run_orchestrator, run_csv_orchestrator, delete_job_data
 from init_db import initialize_database
 
-API_KEY = os.getenv("API_SECRET_KEY", "abc123321cba")
+API_KEY = os.getenv("API_SECRET_KEY", "your_secret_key_here")
 api_key_header = APIKeyHeader(name="X-API-Key", auto_error=True)
 
 def verify_api_key(api_key: str = Security(api_key_header)):

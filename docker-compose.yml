@@ -1,0 +1,22 @@
+services:
+  webemailscraper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webemailscraper_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000" # Maps container port 8000 to host port 8000
+    volumes:
+      - ./db:/app/db
+      - ./output:/app/output
+    # Automatically reads from the .env file in the root directory
+    env_file:
+      - .env
+
+    # OPTIONAL: Uncomment below if you want to hard-limit resources to prevent server crashes
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '4.0'
+    #       memory: 6G
