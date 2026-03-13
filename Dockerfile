@@ -5,6 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
 ENV PATH="/opt/venv/bin:$PATH"
 
+# Increase timeouts for slow networks (3 hours = 10800 seconds)
+ENV PIP_DEFAULT_TIMEOUT=10800
+ENV HTTPX_TIMEOUT=10800.0
+
 # Install Python 3.12 and required system libraries
 RUN apt-get update && apt-get install -y \
     python3.12 \
@@ -28,8 +32,9 @@ RUN pip install --no-cache-dir "camoufox[geoip]"
 # Install Playwright OS-level browser dependencies
 RUN playwright install-deps
 
-# Fetch the stealth browser binaries
-RUN camoufox fetch
+# Fetch the stealth browser binaries with a retry mechanism for slow connections
+# This will try the download up to 5 times if it fails
+RUN for i in {1..5}; do camoufox fetch && break || sleep 15; done
 
 # Copy the application code
 COPY . .
